@@ -5,3 +5,5 @@ include 'processor'
 include 'runtime'
 include 'examples:demoapp'
 include 'examples:minecraft'
+// 'examples:demo-jitpack' is intentionally excluded — it depends on published JitPack artifacts.
+// Build it standalone: cd examples/demo-jitpack && ../gradlew run
