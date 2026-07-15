@@ -1,0 +1,6 @@
+rootProject.name = 'MiniInjector'
+
+include 'core'
+include 'processor'
+include 'runtime'
+include 'example'

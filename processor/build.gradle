@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation project(':core')
+    
+    // Java compiler API
+    implementation 'com.google.auto:auto-common:1.2.1'
+    
+    // Auto-service for annotation processor registration
+    implementation 'com.google.auto.service:auto-service:1.0.1'
+}
+
+jar {
+    duplicatesStrategy = 'exclude'
+}
