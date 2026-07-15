@@ -3,6 +3,34 @@ plugins {
     id 'java-library'
 }
 
-dependencies {
-    // No external dependencies for annotations module
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = 'miniinjector-core'
+            pom {
+                name = 'MiniInjector Core'
+                description = 'MiniInjector — annotations (@Component, @Inject, @Singleton) and interfaces for compile-time dependency injection'
+                url = 'https://github.com/playernguyen/MiniInjector'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/playernguyen/MiniInjector.git'
+                    developerConnection = 'scm:git:ssh://github.com/playernguyen/MiniInjector.git'
+                    url = 'https://github.com/playernguyen/MiniInjector'
+                }
+                developers {
+                    developer {
+                        id = 'playernguyen'
+                        name = 'Player Nguyen'
+                        email = 'playernguyen@users.noreply.github.com'
+                    }
+                }
+            }
+        }
+    }
 }

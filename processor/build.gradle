@@ -10,6 +10,39 @@ dependencies {
     
     // Auto-service for annotation processor registration
     implementation 'com.google.auto.service:auto-service:1.0.1'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0.1'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = 'miniinjector-processor'
+            pom {
+                name = 'MiniInjector Processor'
+                description = 'MiniInjector — annotation processor that generates *Provider classes for compile-time DI'
+                url = 'https://github.com/playernguyen/MiniInjector'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/playernguyen/MiniInjector.git'
+                    developerConnection = 'scm:git:ssh://github.com/playernguyen/MiniInjector.git'
+                    url = 'https://github.com/playernguyen/MiniInjector'
+                }
+                developers {
+                    developer {
+                        id = 'playernguyen'
+                        name = 'Player Nguyen'
+                        email = 'playernguyen@users.noreply.github.com'
+                    }
+                }
+            }
+        }
+    }
 }
 
 jar {
