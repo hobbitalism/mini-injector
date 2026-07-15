@@ -27,9 +27,3 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
-
-      - name: Publish SNAPSHOT
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew publish
