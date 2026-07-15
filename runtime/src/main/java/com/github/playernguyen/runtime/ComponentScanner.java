@@ -121,8 +121,17 @@ public class ComponentScanner {
      * @param componentClass the component class
      * @return the instantiated provider
      */
+    /**
+     * Sub-package where the annotation processor emits generated provider classes.
+     * Must stay in sync with {@code InjectionProcessor.GENERATED_SUBPACKAGE}.
+     */
+    private static final String GENERATED_SUBPACKAGE = "generated";
+
     private InjectionPoint loadProvider(Class<?> componentClass) {
-        String providerClassName = componentClass.getPackageName() + "." 
+        // Generated providers live in a dedicated "generated" sub-package to avoid
+        // name collisions with any hand-written class whose name ends in "Provider".
+        String providerClassName = componentClass.getPackageName() + "."
+            + GENERATED_SUBPACKAGE + "."
             + componentClass.getSimpleName() + "Provider";
         
         try {

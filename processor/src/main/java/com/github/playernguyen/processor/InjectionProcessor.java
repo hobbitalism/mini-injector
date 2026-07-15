@@ -58,13 +58,24 @@ public class InjectionProcessor extends AbstractProcessor {
         return true;
     }
 
+    /**
+     * Sub-package appended to the component's package when emitting generated provider classes.
+     * Keeping generated sources in their own sub-package avoids name collisions with any
+     * hand-written class whose name happens to end in "Provider".
+     */
+    static final String GENERATED_SUBPACKAGE = "generated";
+
     private void generateProvider(TypeElement typeElement) throws IOException {
-        String packageName = getPackageName(typeElement);
+        String componentPackage = getPackageName(typeElement);
+        String packageName = componentPackage + "." + GENERATED_SUBPACKAGE;
         String className = typeElement.getSimpleName().toString();
         String providerClassName = className + "Provider";
 
         StringBuilder code = new StringBuilder();
         code.append("package ").append(packageName).append(";\n\n");
+        // Import the component class from its original package so the generated
+        // provider can reference it by simple name.
+        code.append("import ").append(componentPackage).append(".").append(className).append(";\n");
         code.append("import com.github.playernguyen.inject.InjectionPoint;\n");
         code.append("import com.github.playernguyen.runtime.InjectionContainer;\n\n");
         code.append("public class ").append(providerClassName).append(" implements InjectionPoint {\n");
