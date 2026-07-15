@@ -11,6 +11,7 @@ A lightweight dependency injection framework for Java. Providers are generated a
 | `runtime` | DI container, `ContainerBuilder`, `ComponentScanner` |
 | `examples/demoapp` | Plain Java demo |
 | `examples/minecraft` | Spigot plugin demo |
+| `examples/demo-jitpack` | Consumer demo — uses MiniInjector as an external JitPack dependency |
 
 ## Quick start
 

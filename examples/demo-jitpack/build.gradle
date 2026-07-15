@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'com.github.playernguyen.demojitpack.DemoJitPack'
+}
+
+// For local development, use project dependencies.
+// When using MiniInjector in your own project, replace with:
+//
+//   repositories {
+//       mavenCentral()
+//       maven { url 'https://jitpack.io' }
+//   }
+//   dependencies {
+//       implementation 'com.github.playernguyen.MiniInjector:miniinjector-runtime:1.0.0'
+//       annotationProcessor 'com.github.playernguyen.MiniInjector:miniinjector-processor:1.0.0'
+//   }
+
+dependencies {
+    implementation project(':runtime')
+    annotationProcessor project(':processor')
+}
