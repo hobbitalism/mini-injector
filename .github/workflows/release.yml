@@ -35,6 +35,7 @@ jobs:
       - name: Update README version and commit
         run: |
           git checkout master
+          git stash
           git pull --rebase
           VERSION="${GITHUB_REF_NAME#v}"
           sed -i "s/:miniinjector-runtime:[0-9.]*'/:miniinjector-runtime:$VERSION'/g" README.md
