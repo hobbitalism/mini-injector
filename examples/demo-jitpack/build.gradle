@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'com.github.playernguyen.demojitpack.DemoJitPack'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.playernguyen.MiniInjector:miniinjector-runtime:1.0.0'
+    annotationProcessor 'com.github.playernguyen.MiniInjector:miniinjector-processor:1.0.0'
+}
