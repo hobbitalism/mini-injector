@@ -30,6 +30,20 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      - name: Update README with latest version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          sed -i "s/:miniinjector-runtime:[0-9.]*'/:miniinjector-runtime:$VERSION'/g" README.md
+          sed -i "s/:miniinjector-processor:[0-9.]*'/:miniinjector-processor:$VERSION'/g" README.md
+
+      - name: Commit README update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "docs: update latest version to ${GITHUB_REF_NAME#v} [skip ci]"
+          git push
+
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
