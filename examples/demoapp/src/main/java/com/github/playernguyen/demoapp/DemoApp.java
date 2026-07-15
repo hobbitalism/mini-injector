@@ -16,12 +16,12 @@ public class DemoApp {
     public static void main(String[] args) {
         System.out.println("=== MiniInjector Dependency Injection Demo ===\n");
 
-        // Build the injection container with our components
+        // Build the injection container using hybrid approach
+        // Auto-scan the package + manual registration for special cases
         System.out.println("1. Building injection container...");
+        System.out.println("   - Scanning com.github.playernguyen.demoapp for @Component classes");
         InjectionContainer container = ContainerBuilder.create()
-            .withComponent(InMemoryUserRepository.class)
-            .withComponent(UserService.class)
-            .withComponent(UserController.class)
+            .scanPackage("com.github.playernguyen.demoapp")  // Auto-scan approach
             .build();
         System.out.println("   ✓ Container built successfully\n");
 

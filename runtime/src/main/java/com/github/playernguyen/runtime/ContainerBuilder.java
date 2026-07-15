@@ -6,7 +6,10 @@ import com.github.playernguyen.inject.InjectionPoint;
 
 /**
  * Builder for creating and configuring an InjectionContainer.
- * Provides a fluent API for container setup.
+ * Provides a fluent API for container setup with hybrid approach:
+ * - Auto-scan packages for @Component classes
+ * - Manual registration for special cases
+ * - Custom providers for complex scenarios
  */
 public class ContainerBuilder {
 
@@ -28,71 +31,19 @@ public class ContainerBuilder {
     }
 
     /**
-     * Registers a component class with the container.
-     * The class must be annotated with @Component.
+     * Scans multiple packages for @Component classes and registers them.
+     * This is the recommended approach for most applications.
      * 
-     * @param componentClass the component class to register
+     * @param packageNames the packages to scan
      * @return this builder for chaining
      */
-    public ContainerBuilder withComponent(Class<?> componentClass) {
-        if (!componentClass.isAnnotationPresent(Component.class)) {
-            throw new InjectionException("Component class must be annotated with @Component: " 
-                + componentClass.getName());
-        }
-        scanner.registerComponent(componentClass);
+    public ContainerBuilder scanPackages(String... packageNames) {
+        scanner.scanPackages(packageNames);
         return this;
     }
 
     /**
-     * Registers a custom provider for a given type.
-     * 
-     * @param type the type to register the provider for
-     * @param provider the provider instance
-     * @return this builder for chaining
-     */
-    public ContainerBuilder withProvider(Class<?> type, InjectionPoint provider) {
-        container.register(type.getName(), provider);
-        return this;
-    }
-
-    /**
-     * Registers a custom provider for a given key.
-     * 
-     * @param key the key to register the provider under
-     * @param provider the provider instance
-     * @return this builder for chaining
-     */
-    public ContainerBuilder withProvider(String key, InjectionPoint provider) {
-        container.register(key, provider);
-        return this;
-    }
-
-    /**
-     * Registers a provider that creates a singleton instance.
-     * 
-     * @param type the type
-     * @param instance the singleton instance
-     * @return this builder for chaining
-     */
-    public ContainerBuilder withSingleton(Class<?> type, Object instance) {
-        return withSingleton(type.getName(), instance);
-    }
-
-    /**
-     * Registers a provider that creates a singleton instance.
-     * 
-     * @param key the key
-     * @param instance the singleton instance
-     * @return this builder for chaining
-     */
-    public ContainerBuilder withSingleton(String key, Object instance) {
-        InjectionPoint provider = (c) -> instance;
-        container.register(key, provider);
-        return this;
-    }
-
-    /**
-     * Scans a package for components and registers them.
+     * Scans a single package for components and registers them.
      * 
      * @param packageName the package name to scan
      * @return this builder for chaining
@@ -110,6 +61,77 @@ public class ContainerBuilder {
      */
     public ContainerBuilder scanPackage(Class<?> referenceClass) {
         scanner.scanPackage(referenceClass);
+        return this;
+    }
+
+    /**
+     * Manually registers a component class with the container.
+     * Use this for components in packages that you don't want to scan
+     * or when you need fine-grained control.
+     * 
+     * The class must be annotated with @Component.
+     * 
+     * @param componentClass the component class to register
+     * @return this builder for chaining
+     */
+    public ContainerBuilder withComponent(Class<?> componentClass) {
+        if (!componentClass.isAnnotationPresent(Component.class)) {
+            throw new InjectionException("Component class must be annotated with @Component: " 
+                + componentClass.getName());
+        }
+        scanner.registerComponent(componentClass);
+        return this;
+    }
+
+    /**
+     * Registers a custom provider for a given type.
+     * Use for non-standard or complex instantiation logic.
+     * 
+     * @param type the type to register the provider for
+     * @param provider the provider instance
+     * @return this builder for chaining
+     */
+    public ContainerBuilder withProvider(Class<?> type, InjectionPoint provider) {
+        container.register(type.getName(), provider);
+        return this;
+    }
+
+    /**
+     * Registers a custom provider for a given key.
+     * Use for named/qualified bindings.
+     * 
+     * @param key the key to register the provider under
+     * @param provider the provider instance
+     * @return this builder for chaining
+     */
+    public ContainerBuilder withProvider(String key, InjectionPoint provider) {
+        container.register(key, provider);
+        return this;
+    }
+
+    /**
+     * Registers a provider that creates a singleton instance.
+     * Use for pre-constructed instances (like database connections).
+     * 
+     * @param type the type
+     * @param instance the singleton instance
+     * @return this builder for chaining
+     */
+    public ContainerBuilder withSingleton(Class<?> type, Object instance) {
+        return withSingleton(type.getName(), instance);
+    }
+
+    /**
+     * Registers a provider that creates a singleton instance.
+     * Use for pre-constructed instances (like database connections).
+     * 
+     * @param key the key
+     * @param instance the singleton instance
+     * @return this builder for chaining
+     */
+    public ContainerBuilder withSingleton(String key, Object instance) {
+        InjectionPoint provider = (c) -> instance;
+        container.register(key, provider);
         return this;
     }
 

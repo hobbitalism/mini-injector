@@ -111,6 +111,34 @@ examples/
 
 ---
 
+## Hybrid Approach (Option 2)
+
+Both examples now use the **Hybrid Approach**:
+- **Auto-scan packages** for @Component classes (reduces boilerplate)
+- **Manual registration** for special cases (fine-grained control)
+- **Custom providers** for complex scenarios (flexibility)
+
+### DemoApp Example
+
+```java
+InjectionContainer container = ContainerBuilder.create()
+    .scanPackage("com.github.playernguyen.demoapp")  // ✅ Auto-scan
+    .build();
+```
+
+### Minecraft Plugin Example
+
+```java
+InjectionContainer container = ContainerBuilder.create()
+    .scanPackages(                                  // ✅ Multiple packages
+        "com.github.playernguyen.minecraft.service",
+        "com.github.playernguyen.minecraft.command"
+    )
+    .scanPackage("com.github.playernguyen.minecraft.listener")
+    .withSingleton(PlayerRepository.class, customRepo)  // ✅ Manual override
+    .build();
+```
+
 ## Key Differences Between Examples
 
 | Feature | DemoApp | Minecraft |
@@ -121,6 +149,7 @@ examples/
 | Use Case | Console application | Game server plugin |
 | Complexity | Beginner | Intermediate/Advanced |
 | Real-world | No | Yes |
+| Container Setup | Single scanPackage() | Multiple scanPackages() + overrides |
 
 ---
 

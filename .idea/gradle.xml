@@ -8,7 +8,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/example" />
+            <option value="$PROJECT_DIR$/examples" />
+            <option value="$PROJECT_DIR$/examples/demoapp" />
+            <option value="$PROJECT_DIR$/examples/minecraft" />
             <option value="$PROJECT_DIR$/processor" />
             <option value="$PROJECT_DIR$/runtime" />
           </set>
