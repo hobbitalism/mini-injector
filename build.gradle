@@ -2,9 +2,6 @@ plugins {
     id 'java'
 }
 
-group = 'com.github.playernguyen'
-version = '1.0-SNAPSHOT'
-
 subprojects {
     apply plugin: 'java'
 
@@ -20,5 +17,14 @@ subprojects {
 
     test {
         useJUnitPlatform()
+    }
+}
+
+configure(subprojects.findAll { !it.path.startsWith(':examples') }) {
+    apply plugin: 'maven-publish'
+
+    java {
+        withSourcesJar()
+        withJavadocJar()
     }
 }

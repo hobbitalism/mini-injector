@@ -9,3 +9,35 @@ dependencies {
     // ClassGraph for efficient classpath scanning
     implementation 'io.github.classgraph:classgraph:4.8.165'
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = 'miniinjector-runtime'
+            pom {
+                name = 'MiniInjector Runtime'
+                description = 'MiniInjector — DI container, ContainerBuilder, and ComponentScanner for compile-time dependency injection'
+                url = 'https://github.com/playernguyen/MiniInjector'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/playernguyen/MiniInjector.git'
+                    developerConnection = 'scm:git:ssh://github.com/playernguyen/MiniInjector.git'
+                    url = 'https://github.com/playernguyen/MiniInjector'
+                }
+                developers {
+                    developer {
+                        id = 'playernguyen'
+                        name = 'Player Nguyen'
+                        email = 'playernguyen@users.noreply.github.com'
+                    }
+                }
+            }
+        }
+    }
+}

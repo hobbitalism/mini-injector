@@ -38,6 +38,24 @@ InjectionContainer container = ContainerBuilder.create()
 UserService service = (UserService) container.get(UserService.class.getName());
 ```
 
+## Add as a dependency
+
+MiniInjector is published via **JitPack**. Add the repository and dependencies to your `build.gradle`:
+
+```groovy
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.playernguyen.MiniInjector:miniinjector-runtime:1.0.0'
+    annotationProcessor 'com.github.playernguyen.MiniInjector:miniinjector-processor:1.0.0'
+}
+```
+
+> The group ID is `com.github.playernguyen.MiniInjector` — JitPack derives it from the GitHub repository coordinates.
+
 ## Build
 
 ```bash
