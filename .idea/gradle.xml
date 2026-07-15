@@ -9,7 +9,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/example" />
-            <option value="$PROJECT_DIR$/minecraft-plugin" />
             <option value="$PROJECT_DIR$/processor" />
             <option value="$PROJECT_DIR$/runtime" />
           </set>
